@@ -2,8 +2,15 @@ $(document).ready(function() {
 	makeGrid(16);
 
 	$(document).on('mouseenter', '.box', function() {
-			$(this).css('background-color', '#AAA');
-		});
+		var op = parseFloat($(this).css('opacity'));
+		if (op >= 1) { 
+			return;
+		}
+
+		op += 0.1;
+		console.log(op);
+		$(this).css('opacity', op);
+	});
 	// Keep grid size, reset colors
 	$('#reset').click(function() {
 		$('.box').css('background-color', '#FFF');
@@ -22,7 +29,6 @@ $(document).ready(function() {
 	});
 });
 
-
 function makeGrid(size) {
 	for (var j=0; j<size; j++) {
 		$row = $('<tr />', {
@@ -33,16 +39,11 @@ function makeGrid(size) {
 			$('<td />', {
 				'class' : 'box'
 			}).appendTo($row);
-			console.log('looping');
 		}
 	}
-	$dimension = 480.0/(size) - 2;
-	$('.row').css('width', '480px');
-	$('.row').css('height', $dimension);
+	$dimension = 480.0/(size);
 	$('.box').css('height', $dimension);
 	$('.box').css('width', $dimension);
-	
-
 }
 
 
